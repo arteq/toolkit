@@ -1,0 +1,38 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[user]
+	name = ArteQ
+	email = arteq@arteq.org
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	df = diff
+	ls = ls-files
+	lo = log --pretty=oneline --abbrev-commit --abbrev=6
+[push]
+	default = simple
+[core]
+	editor = vim
+	autocrlf = input
+[merge]
+tool = sublimerge
+
+[mergetool "sublimerge"]
+	cmd = subl -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\" --command \"sublimerge_diff_views\"
+	trustExitCode = false
+
+[diff]
+	tool = sublimerge
+
+[difftool "sublimerge"]
+	cmd = sublime -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\\\"left_read_only\\\": true, \\\"right_read_only\\\": true}\"
+[rerere]
+	enabled = true
+[init]
+	defaultBranch = master
+[commit]
+	template = ~/.config/git/gitcommit
