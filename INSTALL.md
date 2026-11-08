@@ -28,3 +28,4 @@ ln -s ./config/zsh ~/.config/zsh
 ln -s ./config/zsh/zshenv ~/.zshenv
 ln -s ./config/zsh/zshrc ~/.zshrc
 ln -s ./config/git/gitconfig ~/.gitconfig
+ln -s ./config/tmux/tmux.conf ~/.tmux.conf

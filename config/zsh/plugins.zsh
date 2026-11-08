@@ -2,7 +2,7 @@
 # Plugins
 # =========================================================
 
-ZPLUGINDIR="${ZDOTDIR:-$HOME/.config/zsh}/plugins"
+ZPLUGINDIR="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ffe066"
 
 _zplugin_load() {
@@ -17,6 +17,7 @@ _zplugin_load() {
 }
 
 zplugin-update() {
+  setopt local_options null_glob
   local dir
   for dir in "${ZPLUGINDIR}"/*/; do
     echo "Updating ${dir:t}..."
