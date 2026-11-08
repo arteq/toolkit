@@ -61,9 +61,19 @@ make_dir "$HOME/.cache/zsh"
 link "$REPO/config/zsh"              "$HOME/.config/zsh"
 link "$REPO/config/git"              "$HOME/.config/git"
 link "$REPO/config/herdr"            "$HOME/.config/herdr"
+link "$REPO/config/nvim"             "$HOME/.config/nvim"
 link "$REPO/config/zsh/zshenv"       "$HOME/.zshenv"
 link "$REPO/config/zsh/zshrc"        "$HOME/.zshrc"
 link "$REPO/config/git/gitconfig"    "$HOME/.gitconfig"
 link "$REPO/config/tmux/tmux.conf"   "$HOME/.tmux.conf"
+
+# 4. Install Neovim plugins (vim-plug is bootstrapped by init.vim)
+if command -v nvim >/dev/null 2>&1; then
+    log "Installing Neovim plugins (vim-plug bootstrap + PlugInstall)"
+    nvim --headless +'PlugInstall --sync' +qall \
+        || log "WARNING: Neovim plugin install failed, run :PlugInstall manually"
+else
+    log "nvim not found, skipping plugin install (install neovim and run nvim once)"
+fi
 
 log "Done. Repository is now at $REPO. Start a new zsh session (see INSTALL.md for packages and chsh)."
