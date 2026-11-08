@@ -1,0 +1,10 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+a"
+next_tab = ["prefix+right", "alt+right"]
+previous_tab = ["prefix+left", "alt+left"]
+new_tab = "prefix+t"
+
+[ui]
+agent_panel_sort = "spaces"

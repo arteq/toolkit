@@ -16,15 +16,15 @@
 		{
 		  "type": "session",
 		  "style": "diamond",
-		  "foreground": "#ffffff",
-		  "background": "#c386f1",
+		  "foreground": "#373d3f",
+		  "background": "#f3ae35",
 		  "leading_diamond": "",
 		  "trailing_diamond": "",
 		  "template": "{{ if ne .HostName \"debian\" }}{{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }}{{ end }}"
 		},
         {
-          "background": "#cc0000",
-          "foreground": "#ffd139",
+          "background": "#cc2222",
+          "foreground": "#f3ae35",
           "powerline_symbol": "",
           "style": "powerline",
           "template": "  ",
@@ -34,8 +34,9 @@
           "background": "#3465a4",
           "foreground": "#e4e4e4",
           "powerline_symbol": "",
-          "options": {
-	    "home_icon": "",
+          "options": 
+		  {
+	        "home_icon": "",
             "style": "full"
           },
           "style": "powerline",

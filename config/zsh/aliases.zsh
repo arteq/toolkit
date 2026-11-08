@@ -15,6 +15,9 @@ if command -v eza &> /dev/null; then
 	compdef eza=ls
 fi
 
+# ls colors: lightblue for dirs, underline for symlinks
+export LS_COLORS=$LS_COLORS:'di=1;96:ln=3;36'
+
 # Better cat
 if command -v batcat &> /dev/null; then
 	# alias cat='bat'

@@ -99,4 +99,5 @@ source "$ZDOTDIR/prompt.zsh"
 # =========================================================
 # Node / NVM
 # =========================================================
-source "$ZDOTDIR/nvm.zsh"
+# (lazy-loaded on first use of nvm/node/npm/npx; saves ~200 ms per shell)
+source "$ZDOTDIR/lazy_nvm.zsh"

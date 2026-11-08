@@ -19,7 +19,12 @@ which zsh
 chsh
 
 
-ln -s ~/.arteq/config/zsh ~/.config/zsh
-ln -s ~/.config/zsh/.zshenv ~/.zshenv
-ln -s ~/.config/zsh/.zshrc ~/.zshrc
-ln -s ~/.config/git/gitconfig ~/.gitconfig
+mkdir -p .config/zsh
+mkdir -p .local/state/zsh
+mkdir -p .cache/zsh
+
+
+ln -s ./config/zsh ~/.config/zsh
+ln -s ./config/zsh/zshenv ~/.zshenv
+ln -s ./config/zsh/zshrc ~/.zshrc
+ln -s ./config/git/gitconfig ~/.gitconfig
