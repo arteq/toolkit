@@ -3,7 +3,7 @@
 set -euo pipefail
 
 TS="$(date +%s)"
-TARGET_REPO="$HOME/.config_git"
+TARGET_REPO="$HOME/.toolkit"
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 log() { printf '==> %s\n' "$*"; }

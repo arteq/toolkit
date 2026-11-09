@@ -32,27 +32,27 @@ chsh
 ## Run install script
 `./install.sh`
 
-The script moves the repository to `~/.config_git`, creates the required
+The script moves the repository to `~/.toolkit`, creates the required
 directories, links the config files (existing targets are renamed to
 `<name>.<unix timestamp>`) and installs the Neovim plugins.
 
 ### Manual install
 ```sh
-mv <repo dir> ~/.config_git
+mv <repo dir> ~/.toolkit
 
 mkdir -p ~/.config
 mkdir -p ~/.local/state/zsh
 mkdir -p ~/.local/share/zsh/plugins
 mkdir -p ~/.cache/zsh
 
-ln -s ~/.config_git/config/zsh ~/.config/zsh
-ln -s ~/.config_git/config/git ~/.config/git
-ln -s ~/.config_git/config/herdr ~/.config/herdr
-ln -s ~/.config_git/config/nvim ~/.config/nvim
-ln -s ~/.config_git/config/zsh/zshenv ~/.zshenv
-ln -s ~/.config_git/config/zsh/zshrc ~/.zshrc
-ln -s ~/.config_git/config/git/gitconfig ~/.gitconfig
-ln -s ~/.config_git/config/tmux/tmux.conf ~/.tmux.conf
+ln -s ~/.toolkit/config/zsh ~/.config/zsh
+ln -s ~/.toolkit/config/git ~/.config/git
+ln -s ~/.toolkit/config/herdr ~/.config/herdr
+ln -s ~/.toolkit/config/nvim ~/.config/nvim
+ln -s ~/.toolkit/config/zsh/zshenv ~/.zshenv
+ln -s ~/.toolkit/config/zsh/zshrc ~/.zshrc
+ln -s ~/.toolkit/config/git/gitconfig ~/.gitconfig
+ln -s ~/.toolkit/config/tmux/tmux.conf ~/.tmux.conf
 ```
 
 ## First run
