@@ -1,18 +1,35 @@
-" Bootstrap vim-plug and install missing plugins on first run
-let s:plug_file = stdpath('data') . '/site/autoload/plug.vim'
-if empty(glob(s:plug_file))
-  silent execute '!curl -fLo ' . shellescape(s:plug_file) . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  execute 'set runtimepath+=' . fnameescape(stdpath('data') . '/site')
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" Leader = space
+let mapleader = " "
+let maplocalleader = " "
 
-call plug#begin(stdpath('data') . '/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'stevearc/dressing.nvim'
+Plug 'ziontee113/icon-picker.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
+
+" Icon picker init
+lua << EOF
+require("telescope").setup({})
+require("dressing").setup({
+    select = {
+        backend = { "telescope" }
+    }
+})
+require("icon-picker").setup({ 
+	disable_legacy_commands = true 
+})
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal emoji symbols<cr>", opts)
+vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert emoji symbols<cr>", opts)
+EOF
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -93,14 +110,7 @@ command! -nargs=0 Format :call CocAction('format')
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-function! CocStatusSafe() abort
-  try
-    return coc#status()
-  catch
-    return ''
-  endtry
-endfunction
-set statusline^=%{CocStatusSafe()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 set signcolumn=no
 " set number

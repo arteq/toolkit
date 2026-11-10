@@ -6,14 +6,22 @@ TS="$(date +%s)"
 TARGET_REPO="$HOME/.toolkit"
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-log() { printf '==> %s\n' "$*"; }
+# Status helpers: each prefixes the message with an icon showing what happened.
+log()     { printf '🔹 %s\n' "$*"; }        # neutral info / step
+ok()      { printf '✅ %s\n' "$*"; }        # succeeded
+skip()    { printf '⏭️  %s\n' "$*"; }       # nothing to do, already in place
+path()    { printf '📂 %s\n' "$*"; }        # directory created
+linked()  { printf '🔗 %s\n' "$*"; }        # symlink created
+installing() { printf '⬇️  %s\n' "$*"; }       # installing something
+warn()    { printf '⚠️  %s\n' "$*" >&2; }   # non-fatal problem
+fail()    { printf '❌ %s\n' "$*" >&2; }    # failure
 
 # If the target exists (and is not already the correct symlink), rename it
 # to <name>.<unix timestamp>.
 backup_if_exists() {
     local path="$1"
     if [ -e "$path" ] || [ -L "$path" ]; then
-        log "Target exists, renaming $path -> $path.$TS"
+        path "Target exists, renaming $path -> $path.$TS"
         mv "$path" "$path.$TS"
     fi
 }
@@ -21,31 +29,31 @@ backup_if_exists() {
 make_dir() {
     local dir="$1"
     if [ -d "$dir" ] && [ ! -L "$dir" ]; then
-        log "Directory already exists: $dir"
+        skip "Directory already exists: $dir"
         return
     fi
     backup_if_exists "$dir"
-    log "Creating directory $dir"
+    path "Creating directory $dir"
     mkdir -p "$dir"
 }
 
 link() {
     local src="$1" dest="$2"
     if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-        log "Link already in place: $dest -> $src"
+        skip "Link already in place: $dest -> $src"
         return
     fi
     backup_if_exists "$dest"
-    log "Linking $dest -> $src"
+    linked "Linking $dest -> $src"
     ln -s "$src" "$dest"
 }
 
 # 1. Move the repository to a hidden directory
 if [ "$SRC" = "$TARGET_REPO" ]; then
-    log "Repository already located at $TARGET_REPO"
+    skip "Repository already located at $TARGET_REPO"
 else
     backup_if_exists "$TARGET_REPO"
-    log "Moving repository $SRC -> $TARGET_REPO"
+    path "Moving repository $SRC -> $TARGET_REPO"
     mv "$SRC" "$TARGET_REPO"
 fi
 REPO="$TARGET_REPO"
@@ -69,11 +77,19 @@ link "$REPO/config/tmux/tmux.conf"   "$HOME/.tmux.conf"
 
 # 4. Install Neovim plugins (vim-plug is bootstrapped by init.vim)
 if command -v nvim >/dev/null 2>&1; then
-    log "Installing Neovim plugins (vim-plug bootstrap + PlugInstall)"
-    nvim --headless +'PlugInstall --sync' +qall \
-        || log "WARNING: Neovim plugin install failed, run :PlugInstall manually"
+    installing "Installing Neovim plugins (vim-plug bootstrap + PlugInstall)"
+    if nvim --headless +'PlugInstall --sync' +qall; then
+        ok "Neovim plugins installed"
+    else
+        fail "Neovim plugin install failed, run :PlugInstall manually"
+    fi
 else
-    log "nvim not found, skipping plugin install (install neovim and run nvim once)"
+    skip "nvim not found, skipping plugin install (install neovim and run nvim once)"
 fi
 
-log "Done. Repository is now at $REPO. Start a new zsh session (see INSTALL.md for packages and chsh)."
+# 5. Check external tools required by the linked configs
+if ! command -v delta >/dev/null 2>&1; then
+    warn "'delta' not found but git is configured to use it as pager (apt install git-delta)"
+fi
+
+ok "Done. Repository is now at $REPO. Start a new zsh session (see INSTALL.md for packages and chsh)."

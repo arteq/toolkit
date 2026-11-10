@@ -18,4 +18,4 @@ export GPG_TTY=$(tty)
 
 # ---------- PATH ----------
 # Personal binaries/scripts
-export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.bin:$HOME/.local/bin:$HOME/.nvm/current/bin:$PATH"

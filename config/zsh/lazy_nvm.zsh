@@ -3,6 +3,7 @@
 # then re-dispatch the original command with its arguments.
 
 export NVM_DIR="$HOME/.nvm"
+export NVM_SYMLINK_CURRENT=true
 
 _lazynvm_cmds=(nvm node npm npx)
 

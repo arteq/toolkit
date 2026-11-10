@@ -6,6 +6,7 @@ apt install \
     zsh \
     zsh-syntax-highlighting \
     git \
+    git-delta \
     curl \
     wget \
     ca-certificates \
@@ -18,6 +19,10 @@ apt install \
     nodejs \
     eza
 ```
+
+> `git-delta` provides the `delta` pager used by `config/git/gitconfig`
+> (available in Debian 13+ / Ubuntu 24.04+; on older releases install the
+> `.deb` from https://github.com/dandavison/delta/releases).
 
 ## Oh My Posh
 `curl -s https://ohmyposh.dev/install.sh | bash -s`

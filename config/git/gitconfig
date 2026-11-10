@@ -18,6 +18,7 @@
 [core]
 	editor = vim
 	autocrlf = input
+	pager = delta
 [merge]
 tool = sublimerge
 
@@ -36,3 +37,12 @@ tool = sublimerge
 	defaultBranch = master
 [commit]
 	template = ~/.config/git/gitcommit
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	dark = true
