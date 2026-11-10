@@ -71,7 +71,6 @@ link "$REPO/config/git"              "$HOME/.config/git"
 link "$REPO/config/herdr"            "$HOME/.config/herdr"
 link "$REPO/config/nvim"             "$HOME/.config/nvim"
 link "$REPO/config/zsh/zshenv"       "$HOME/.zshenv"
-link "$REPO/config/zsh/zshrc"        "$HOME/.zshrc"
 link "$REPO/config/git/gitconfig"    "$HOME/.gitconfig"
 link "$REPO/config/tmux/tmux.conf"   "$HOME/.tmux.conf"
 

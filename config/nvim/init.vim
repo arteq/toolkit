@@ -2,6 +2,13 @@
 let mapleader = " "
 let maplocalleader = " "
 
+" Bootstrap vim-plug if it is not installed yet
+let s:plug_path = stdpath('data') . '/site/autoload/plug.vim'
+if empty(glob(s:plug_path))
+  silent execute '!curl -fLo ' . shellescape(s:plug_path) . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -16,6 +23,8 @@ call plug#end()
 
 " Icon picker init
 lua << EOF
+-- Skip on first run, before plugins are installed
+if not pcall(require, "telescope") then return end
 require("telescope").setup({})
 require("dressing").setup({
     select = {
@@ -90,7 +99,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * if exists('*CocActionAsync') | silent call CocActionAsync('highlight') | endif
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -110,7 +119,9 @@ command! -nargs=0 Format :call CocAction('format')
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+if has_key(g:plugs, 'coc.nvim') && isdirectory(g:plugs['coc.nvim'].dir)
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+endif
 
 set signcolumn=no
 " set number
