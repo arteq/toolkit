@@ -4,8 +4,15 @@ let maplocalleader = " "
 
 " Bootstrap vim-plug if it is not installed yet
 let s:plug_path = stdpath('data') . '/site/autoload/plug.vim'
+let s:plug_fresh = 0
 if empty(glob(s:plug_path))
   silent execute '!curl -fLo ' . shellescape(s:plug_path) . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  let s:plug_fresh = filereadable(s:plug_path)
+endif
+" The site/ dir may not have existed at startup (so it is not in
+" 'runtimepath' yet): source the freshly downloaded file directly.
+if s:plug_fresh
+  execute 'source ' . fnameescape(s:plug_path)
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
