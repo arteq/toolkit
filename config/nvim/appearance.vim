@@ -6,7 +6,7 @@ set signcolumn=no
 " set number
 " set termguicolors
 set background=dark
-colorscheme industry
+colorscheme slate
 highlight LineNr ctermfg=yellow ctermbg=8
 highlight Normal ctermbg=black
 
